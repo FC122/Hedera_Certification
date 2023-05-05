@@ -1,0 +1,224 @@
+const operatorPrivateKey = PrivateKey.fromString("302e020100300506032b6570042204201e78bc8323ec2243cfed5e357db0af80db93f0f805e3f97fe53d386a3f80db08")
+const operatorAccountId = "0.0.4545227"
+
+Task:Setup - setup.js
+_____________________
+- Acount 1
+Private key: 302e020100300506032b657004220420f39794519c55d5f05d45d8933eaef7dabf494b6b8466af12862bd7c5ce50e7b7
+Account ID: 0.0.4567941
+
+- Acount 2
+Private key: 302e020100300506032b657004220420f1d5e07759450c9550f69a4ac662f95e5cd972a4648ebd29c95c073904a99de4
+Account ID: 0.0.4567942
+
+- Acount 3
+Private key: 302e020100300506032b6570042204203e91ca4b65b5c2d1fcf4705bb7cff98bc2d5f528e2e311192b8f259f1c529ec2
+Account ID: 0.0.4567944
+
+- Acount 4
+Private key: 302e020100300506032b657004220420ac349327b6ef0f40604d6054076f3ac7abeb73f5e6403e6f6c1522828e9d7452
+Account ID: 0.0.4567945
+
+- Acount 5
+Private key: 302e020100300506032b65700422042005e03b8e0d0e6f17b3c769b6bfc48de4cd570854292eddb2c376258cbd5ea164
+Account ID: 0.0.4567947
+
+[
+  AccountId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 4567941, high: 0, unsigned: false },
+    aliasKey: null,
+    evmAddress: null,
+    _checksum: null
+  },
+  AccountId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 4567942, high: 0, unsigned: false },
+    aliasKey: null,
+    evmAddress: null,
+    _checksum: null
+  },
+  AccountId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 4567944, high: 0, unsigned: false },
+    aliasKey: null,
+    evmAddress: null,
+    _checksum: null
+  },
+  AccountId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 4567945, high: 0, unsigned: false },
+    aliasKey: null,
+    evmAddress: null,
+    _checksum: null
+  },
+  AccountId {
+    shard: Long { low: 0, high: 0, unsigned: false },
+    realm: Long { low: 0, high: 0, unsigned: false },
+    num: Long { low: 4567947, high: 0, unsigned: false },
+    aliasKey: null,
+    evmAddress: null,
+    _checksum: null
+  }
+]
+TransactionReceipt {
+  status: Status { _code: 22 },
+  accountId: null,
+  fileId: null,
+  contractId: null,
+  topicId: null,
+  tokenId: null,
+  scheduleId: null,
+  exchangeRate: ExchangeRate {
+    hbars: 30000,
+    cents: 172792,
+    expirationTime: 2023-05-05T09:00:00.000Z,
+    exchangeRateInCents: 5.759733333333333
+  },
+  topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+  topicRunningHash: Uint8Array(0) [],
+  totalSupply: Long { low: 0, high: 0, unsigned: false },
+  scheduledTransactionId: null,
+  serials: [],
+  duplicates: [],
+  children: []
+}
+
+
+Task: Token Service - token_service.js
+______________________________________
+Created token: 0.0.4568363
+TransactionReceipt {
+  status: Status { _code: 22 },
+  accountId: null,
+  fileId: null,
+  contractId: null,
+  topicId: null,
+  tokenId: null,
+  scheduleId: null,
+  exchangeRate: ExchangeRate {
+    hbars: 30000,
+    cents: 173126,
+    expirationTime: 2023-05-05T10:00:00.000Z,
+    exchangeRateInCents: 5.770866666666667
+  },
+  topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+  topicRunningHash: Uint8Array(0) [],
+  totalSupply: Long { low: 0, high: 0, unsigned: false },
+  scheduledTransactionId: null,
+  serials: [],
+  duplicates: [],
+  children: []
+}
+
+
+Task:Smart Contract Service - smart_contract.js, smart_contract.json
+____________________________________________________________________
+ContractId: 0.0.4568582
+Res1: 12
+Res2: 14
+
+
+Task:Scheduled Transaction - scheduled_transaction.js
+_____________________________________________________
+The schedule ID is 0.0.4569539
+The scheduled transaction ID is 0.0.4567944@1683282575.744399888?scheduled
+The transaction consensus status is 22
+/Users/fcica/Hedera_Cert/Hedera_Certification/node_modules/@hashgraph/sdk/lib/ReceiptStatusError.cjs:43
+    super(props, `receipt for transaction ${props.transactionId.toString()} contained error status ${props.status.toString()}`);
+    ^
+
+ReceiptStatusError: receipt for transaction 0.0.4567944@1683282577.188932386 contained error status SCHEDULE_ALREADY_DELETED
+    at new ReceiptStatusError (/Users/fcica/Hedera_Cert/Hedera_Certification/node_modules/@hashgraph/sdk/lib/ReceiptStatusError.cjs:43:5)
+    at TransactionReceiptQuery._mapStatusError (/Users/fcica/Hedera_Cert/Hedera_Certification/node_modules/@hashgraph/sdk/lib/transaction/TransactionReceiptQuery.cjs:273:12)
+    at TransactionReceiptQuery.execute (/Users/fcica/Hedera_Cert/Hedera_Certification/node_modules/@hashgraph/sdk/lib/Executable.cjs:644:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async TransactionResponse.getReceipt (/Users/fcica/Hedera_Cert/Hedera_Certification/node_modules/@hashgraph/sdk/lib/transaction/TransactionResponse.cjs:88:21)
+    at async main (/Users/fcica/Hedera_Cert/Hedera_Certification/src/scheduled_transaction.js:70:22) {
+  status: Status { _code: 212 },
+  transactionId: TransactionId {
+    accountId: AccountId {
+      shard: Long { low: 0, high: 0, unsigned: false },
+      realm: Long { low: 0, high: 0, unsigned: false },
+      num: Long { low: 4567944, high: 0, unsigned: false },
+      aliasKey: null,
+      evmAddress: null,
+      _checksum: null
+    },
+    validStart: Timestamp {
+      seconds: Long { low: 1683282577, high: 0, unsigned: false },
+      nanos: Long { low: 188932386, high: 0, unsigned: false }
+    },
+    scheduled: false,
+    nonce: null
+  },
+  transactionReceipt: TransactionReceipt {
+    status: Status { _code: 212 },
+    accountId: null,
+    fileId: null,
+    contractId: null,
+    topicId: null,
+    tokenId: null,
+    scheduleId: null,
+    exchangeRate: ExchangeRate {
+      hbars: 30000,
+      cents: 173376,
+      expirationTime: 2023-05-05T11:00:00.000Z,
+      exchangeRateInCents: 5.7792
+    },
+    topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+    topicRunningHash: Uint8Array(0) [],
+    totalSupply: Long { low: 0, high: 0, unsigned: false },
+    scheduledTransactionId: null,
+    serials: [],
+    duplicates: [],
+    children: []
+  }
+}
+
+
+Task: Multi Signature - multi_signature.js
+__________________________________________
+AccountId {
+  shard: Long { low: 0, high: 0, unsigned: false },
+  realm: Long { low: 0, high: 0, unsigned: false },
+  num: Long { low: 4569365, high: 0, unsigned: false },
+  aliasKey: null,
+  evmAddress: null,
+  _checksum: null
+}
+Error: {"name":"StatusError","status":"INVALID_SIGNATURE","transactionId":"0.0.4567941@1683281994.684298611","message":"receipt for transaction 0.0.4567941@1683281994.684298611 contained error status INVALID_SIGNATURE"}
+TransactionReceipt {
+  status: Status { _code: 22 },
+  accountId: null,
+  fileId: null,
+  contractId: null,
+  topicId: null,
+  tokenId: null,
+  scheduleId: null,
+  exchangeRate: ExchangeRate {
+    hbars: 30000,
+    cents: 173376,
+    expirationTime: 2023-05-05T11:00:00.000Z,
+    exchangeRateInCents: 5.7792
+  },
+  topicSequenceNumber: Long { low: 0, high: 0, unsigned: false },
+  topicRunningHash: Uint8Array(0) [],
+  totalSupply: Long { low: 0, high: 0, unsigned: false },
+  scheduledTransactionId: null,
+  serials: [],
+  duplicates: [],
+  children: []
+}
+
+Task: Consensus Service - consensus_service.js
+______________________________________________
+Created topic with id: 0.0.4569594
+Look at topic messages: https://hashscan.io/testnet/topic/0.0.4569594
+Err: {"name":"StatusError","status":"INVALID_SIGNATURE","transactionId":"0.0.4567944@1683282850.180661793","message":"receipt for transaction 0.0.4567944@1683282850.180661793 contained error status INVALID_SIGNATURE"}
+
+Sent message to topic: 0.0.4569594, message: 2023-05-05T10:34:23.006Z

@@ -1,53 +1,49 @@
-const { 
-    Client, 
-    AccountCreateTransaction, 
-    Hbar, 
-    PrivateKey,
-    PublicKey } = require("@hashgraph/sdk");
-require('dotenv').config({ path: 'Hedera_Cert/.env' });
+const { PrivateKey, Client, AccountCreateTransaction, TransferTransaction, Hbar } = require("@hashgraph/sdk");
+
+const treasuryAccount = PrivateKey.fromString("302e020100300506032b6570042204201e78bc8323ec2243cfed5e357db0af80db93f0f805e3f97fe53d386a3f80db08")
+const treasuryId = "0.0.4545227"
+
+const treasuryClient = Client.forTestnet();
+treasuryClient.setOperator(treasuryId, treasuryAccount).setDefaultMaxTransactionFee(new Hbar(10));
+
+async function createAccount(n) {
+    const newAccountPrivateKey = PrivateKey.generateED25519();
+    const tx = await new AccountCreateTransaction()
+        .setKey(newAccountPrivateKey)
+        .execute(treasuryClient);
+
+    const accountId = (await tx.getReceipt(treasuryClient)).accountId;
+    console.log(`- Acount ${n}`);
+    console.log(`Private key: ${newAccountPrivateKey}`);
+    console.log(`Account ID: ${accountId}\n`);
+    return accountId
+}
+
+async function fundAccounts(accountIds){
+    console.log(accountIds)
+    const tx = await new TransferTransaction()
+        .addHbarTransfer(treasuryId, new Hbar(-5000))
+        .addHbarTransfer(accountIds[0], new Hbar(1000))
+        .addHbarTransfer(accountIds[1], new Hbar(1000))
+        .addHbarTransfer(accountIds[2], new Hbar(1000))
+        .addHbarTransfer(accountIds[3], new Hbar(1000))
+        .addHbarTransfer(accountIds[4], new Hbar(1000))
+        .execute(treasuryClient)
+
+    const txId = (await tx.getReceipt(treasuryClient));
+    console.log(txId)
+
+}
 
 async function main() {
-    const operatorPrivateKey = "3030020100300706052b8104000a0422042030b51126b79282c08cd86b050ac42ccaf0f8886a465fb713babba518191bb355"
-    const operatorAccountId = "0.0.4539279"
-  
-    if (operatorPrivateKey == null || operatorAccountId == null) {
-        throw new Error("Environment variables OPERATOR_KEY and OPERATOR_ID must be set.");
-    }
-
-    const client = Client.forTestnet()
-        .setOperator(operatorAccountId, operatorPrivateKey);
-
     const accounts = [];
-
     for (let i = 1; i <= 5; i++) {
-        const newKey = await PrivateKey.generate();
-        const newPublicKey = newKey.publicKey;
-
-        const response = await new AccountCreateTransaction()
-            .setKey(newPublicKey)
-            .setInitialBalance(new Hbar(2)) // Set initial balance to cover the transaction costs.
-            .execute(client);
-
-        const receipt = await response.getReceipt(client);
-        const newAccountId = receipt.accountId;
-
-        console.log(`Account${i} created with ID: ${newAccountId} and private key: ${newKey}`);
-
-        accounts.push({
-            accountId: newAccountId.toString(),
-            privateKey: newKey.toStringDer(),
-            publicKey: newPublicKey.toStringDer(),
-        });
+        let id = await createAccount(i);
+        accounts.push(id)
     }
-
-    // Save the account details to a file
-    const fs = require('fs');
-    fs.writeFileSync('hedera_accounts.json', JSON.stringify(accounts, null, 4));
-
+    
+   await fundAccounts(accounts)
     process.exit()
 }
 
-main().catch((error) => {
-    console.error(error);
-    process.exit(1);
-});
+main();
